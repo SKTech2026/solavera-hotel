@@ -167,3 +167,44 @@
 @media(max-width:850px){.booking-summary{order:-1;max-width:none;padding:17px 20px}.summary-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:none;color:var(--teal);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:7px 0;cursor:pointer}.summary-body{display:none;padding-top:15px}.summary-body.is-open{display:block}.reservation-detail-grid{grid-template-columns:1fr;gap:15px}.confirmation-head{padding:150px 0 65px}}
 @media(max-width:650px){.guest-form .stay-form-grid{grid-template-columns:1fr}.extra-grid{grid-template-columns:1fr}.extra-card{min-height:0}.payment-unavailable{gap:10px}.payment-unavailable>span:last-child{font-size:8px}.confirmation-head h1{font-size:68px}.confirmation-body{padding:45px 0 80px}.reservation-details{padding:25px 20px}.reservation-detail-grid h2{font-size:34px}.confirmation-actions{display:grid;grid-template-columns:1fr}.confirmation-actions .text-link{margin:12px auto 0}.lookup-form{grid-template-columns:1fr;padding:23px}.lookup-form button{grid-column:auto}.lookup-result{padding-top:55px}.booking-next button{margin-left:36px}}
 @media print{.site-header,.footer,.confirmation-actions,.confirmation-head .confirmation-mark,.confirmation-head p,.summary-toggle{display:none!important}.print-brand{display:block!important;font:29px var(--font-display),serif;letter-spacing:.12em;padding:0 0 12px;border-bottom:1px solid #888}body,.confirmation-page{background:#fff!important;color:#000!important}.confirmation-head{background:#fff!important;color:#000!important;padding:0!important}.confirmation-head h1{font-size:46px!important;margin:8px 0 15px!important}.confirmation-body{padding:0!important}.reservation-details{box-shadow:none!important;padding:0!important}.reservation-detail-grid{grid-template-columns:1fr 1fr!important;gap:30px!important}.reservation-detail-grid h2{font-size:28px!important}.reservation-number strong{font-size:38px!important}.confirmation-page{padding:0!important}@page{margin:18mm}}
+
+/* Public-site readability and responsive polish */
+:focus-visible{outline:2px solid #c7a56a;outline-offset:3px}
+.site-header:not(.site-header-solid){isolation:isolate}
+.site-header:not(.site-header-solid)::before{content:"";position:absolute;inset:0 0 auto;height:150px;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,24,23,.48) 0%,rgba(5,24,23,.2) 55%,transparent 100%)}
+.nav-inner{position:relative;z-index:1}
+.site-header:not(.site-header-solid) .brand-type,.site-header:not(.site-header-solid) .nav-links a,.site-header:not(.site-header-solid) .nav-cta{text-shadow:0 1px 9px rgba(5,24,23,.5)}
+.site-header:not(.site-header-solid) .nav-links a{opacity:.96}
+.hero-overlay{background:linear-gradient(90deg,rgba(2,28,30,.78) 0%,rgba(2,28,30,.38) 48%,rgba(2,28,30,.08) 78%),linear-gradient(0deg,rgba(2,28,30,.44),transparent 34%)}
+.hero-content h1,.hero-content p,.hero-kicker{text-shadow:0 2px 14px rgba(2,28,30,.34)}
+.hero p{color:#fff}
+.button-outline{background:rgba(5,24,23,.16);border-color:#ffffffc7}
+.button-outline:hover{background:#fff}
+.interior-hero-shade{background:linear-gradient(90deg,rgba(9,40,40,.76) 0%,rgba(9,40,40,.38) 48%,rgba(9,40,40,.12) 78%),linear-gradient(0deg,rgba(9,40,40,.48),transparent 72%)}
+.interior-hero-content h1,.interior-hero-content p,.interior-hero-content .back-link,.hero-rate{text-shadow:0 2px 12px rgba(5,24,23,.3)}
+.final-cta-overlay{background:radial-gradient(ellipse at center,rgba(8,45,44,.5) 0%,rgba(8,45,44,.34) 54%,rgba(8,45,44,.18) 100%)}
+.final-cta-content h2,.final-cta-content p{text-shadow:0 2px 14px rgba(5,24,23,.35)}
+.room-card{display:flex;flex-direction:column}
+.room-content{display:flex;flex:1;flex-direction:column}
+.room-content>p{color:#59645f}
+.room-bottom{margin-top:auto;gap:12px;flex-wrap:wrap;align-items:center}
+.room-bottom small{color:#5d6862}
+.room-bottom a,.room-book-link{min-height:44px}
+.room-facts span{color:#525e59}
+.room-amenities span{color:#4e5d55}
+.discovery-filters label,.stay-form label,.detail-booking-fields label,.guest-form label:not(.terms-check),.lookup-form label,.wide-label{color:#765a37}
+.discovery-result,.rooms-empty p{color:#596660}
+.booking-step{color:#687a71}
+.booking-option-facts span{color:#56645d}
+@media(max-width:900px){.site-header:not(.site-header-solid)::before{height:125px}}
+@media(max-width:650px){
+	.hero{height:min(760px,100svh);min-height:620px;padding-bottom:clamp(130px,20svh,165px)}
+	.hero h1{font-size:clamp(50px,13.8vw,88px)}
+	.hero-actions .button{min-height:48px;padding-inline:15px}
+	.hero-overlay{background:linear-gradient(90deg,rgba(2,28,30,.73) 0%,rgba(2,28,30,.38) 64%,rgba(2,28,30,.12) 100%),linear-gradient(0deg,rgba(2,28,30,.5) 0%,rgba(2,28,30,.12) 58%,transparent 100%)}
+	.room-content{padding:24px}
+	.room-bottom{align-items:center}
+	.room-bottom strong{font-size:28px}
+	.discovery-filters select{min-height:52px}
+}
+@media(max-width:380px){.hero h1{font-size:clamp(42px,14vw,50px)}}
