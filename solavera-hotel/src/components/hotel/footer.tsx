@@ -12,11 +12,6 @@ export function Footer() {
         <div><h3>Get in touch</h3><p>Philippines<br/>A private island state of mind</p><a href="mailto:stay@solaverahotel.com">stay@solaverahotel.com <ArrowUpRight size={14}/></a><a href="tel:+63280000000">+63 2 8000 0000</a></div>
       </div>
       <div className="container footer-bottom"><span>© {new Date().getFullYear()} Solavéra Hotel. All rights reserved.</span><span>Made for moments that stay with you.</span></div>
-      <div className="container footer-credit">
-        <p><span>Designed &amp; Developed by</span> <strong>Emmanuel Hernandez</strong></p>
-        <p>IT Programmer <span aria-hidden="true">•</span> Website Designer &amp; Programmer</p>
-        <a href="tel:+639381993490">Call: +63 938 199 3490</a>
-      </div>
     </footer>
   );
 }
