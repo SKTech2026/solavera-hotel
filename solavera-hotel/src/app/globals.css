@@ -208,3 +208,9 @@
 	.discovery-filters select{min-height:52px}
 }
 @media(max-width:380px){.hero h1{font-size:clamp(42px,14vw,50px)}}
+.footer-credit{border-top:1px solid #ffffff1c;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 0 20px;color:#a9bcb4;font-size:11px;line-height:1.5}
+.footer-credit p{margin:0}
+.footer-credit strong{color:var(--gold);font-weight:600}
+.footer-credit a{color:#e4ebe4;white-space:nowrap}
+.footer-credit a:hover{color:var(--gold)}
+@media(max-width:650px){.footer-credit{flex-direction:column;align-items:center;text-align:center;gap:5px;padding:16px 0 20px}.footer-credit p,.footer-credit a{overflow-wrap:anywhere;white-space:normal}}
