@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import { Header } from "@/components/hotel/header";
+import { Footer } from "@/components/hotel/footer";
+
+export const metadata: Metadata = { title: "Demo Booking Terms & Privacy | Solavéra Hotel" };
+
+export default function PoliciesPage() { return <><Header/><main><section className="booking-page-heading"><div className="container"><span className="eyebrow with-line">BEFORE YOU RESERVE</span><h1>Booking <em>Terms</em></h1><p>Terms and privacy information for this local demonstration.</p></div></section><section className="booking-page-body"><div className="container policy-copy"><h2>Demo booking notice</h2><p>This is a demonstration booking system. It does not process payments, guarantee a real hotel stay, or connect to a live property management system. Room rates and extras are demonstration values.</p><h2>Your information</h2><p>Guest details and reservations are stored in a local file inside this project for this demonstration. Do not enter real sensitive information. Reservation lookup requires the reservation number and matching email address. The confirmation page uses a short-lived, HTTP-only receipt cookie.</p><h2>Payments and changes</h2><p>Pay at Hotel and Bank / Online Payment are method selections only. No money is collected here. Changes and cancellation are not yet supported in this demonstration.</p></div></section></main><Footer/></>; }

@@ -1,0 +1,24 @@
+export type Room = {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  eyebrow: string;
+  shortDescription: string;
+  description: string;
+  image: string;
+  alt: string;
+  gallery: { src: string; alt: string }[];
+  price: number;
+  currency: "PHP";
+  maxGuests: number;
+  adults: number;
+  children: number;
+  bedType: string;
+  roomSize: number;
+  view: string;
+  amenities: string[];
+  features: string[];
+  featured: boolean;
+  available: boolean;
+};
