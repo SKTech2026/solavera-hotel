@@ -5,6 +5,7 @@ import { summarizeReservations } from "../src/lib/admin.ts";
 import { datesOverlap, availablePhysicalRooms } from "../src/lib/reservations/availability.ts";
 import { priceExtra, priceExtras } from "../src/lib/reservations/pricing.ts";
 import { initialStatuses } from "../src/lib/reservations/status.ts";
+import { buildReservationRow, mapSupabaseReservation, resolveReservationRepository } from "../src/lib/reservations/supabase-repository.ts";
 
 test("date-only night counts survive DST and month boundaries", () => {
   assert.equal(numberOfNights("2027-03-13", "2027-03-16"), 3);
@@ -65,4 +66,87 @@ test("admin summaries aggregate arrivals, departures, open payments, and totals"
   assert.equal(summary.pendingPayments, 2);
   assert.equal(summary.totalReservations, 4);
   assert.equal(summary.currentGuests, 1);
+});
+
+test("supabase reservations are mapped and fallback repository resolves without live credentials", () => {
+  const row = {
+    id: "db_123",
+    reservation_number: "SOL-2026-000001",
+    guest_first_name: "Ari",
+    guest_last_name: "Dela Cruz",
+    guest_email: "ari@example.com",
+    guest_phone: "+63 917 000 0000",
+    guest_country: "Philippines",
+    guest_address: "Makati City",
+    room_id: "ocean-view",
+    room_slug: "ocean-view-room",
+    room_name: "Ocean View Room",
+    assigned_room_ids: ["o201", "o202"],
+    check_in: "2026-10-20",
+    check_out: "2026-10-23",
+    adults: 2,
+    children: 1,
+    rooms: 1,
+    nights: 3,
+    room_rate: 12800,
+    room_subtotal: 38400,
+    extras: [{ id: "breakfast", name: "Breakfast", pricingType: "per_person", unitPrice: 900, quantity: 3, total: 2700 }],
+    extras_subtotal: 2700,
+    grand_total: 41100,
+    arrival_time: "15:00",
+    payment_method: "pay_at_hotel",
+    payment_status: "pending",
+    reservation_status: "confirmed",
+    special_requests: "Late arrival",
+    receipt_token_hash: "00".repeat(32),
+    created_at: "2026-10-01T10:00:00.000Z",
+    updated_at: "2026-10-01T10:00:00.000Z",
+  };
+
+  const mapped = mapSupabaseReservation(row);
+  assert.equal(mapped.reservationNumber, "SOL-2026-000001");
+  assert.deepEqual(mapped.guest, {
+    firstName: "Ari",
+    lastName: "Dela Cruz",
+    email: "ari@example.com",
+    phone: "+63 917 000 0000",
+    country: "Philippines",
+    address: "Makati City",
+  });
+  assert.equal(mapped.grandTotal, 41100);
+  assert.deepEqual(buildReservationRow(mapped), {
+    id: "db_123",
+    reservation_number: "SOL-2026-000001",
+    guest_first_name: "Ari",
+    guest_last_name: "Dela Cruz",
+    guest_email: "ari@example.com",
+    guest_phone: "+63 917 000 0000",
+    guest_country: "Philippines",
+    guest_address: "Makati City",
+    room_id: "ocean-view",
+    room_slug: "ocean-view-room",
+    room_name: "Ocean View Room",
+    assigned_room_ids: ["o201", "o202"],
+    check_in: "2026-10-20",
+    check_out: "2026-10-23",
+    adults: 2,
+    children: 1,
+    rooms: 1,
+    nights: 3,
+    room_rate: 12800,
+    room_subtotal: 38400,
+    extras: [{ id: "breakfast", name: "Breakfast", pricingType: "per_person", unitPrice: 900, quantity: 3, total: 2700 }],
+    extras_subtotal: 2700,
+    grand_total: 41100,
+    arrival_time: "15:00",
+    payment_method: "pay_at_hotel",
+    payment_status: "pending",
+    reservation_status: "confirmed",
+    special_requests: "Late arrival",
+    receipt_token_hash: "00".repeat(32),
+    created_at: "2026-10-01T10:00:00.000Z",
+    updated_at: "2026-10-01T10:00:00.000Z",
+  });
+  assert.equal(resolveReservationRepository({ NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co", SUPABASE_SERVICE_ROLE_KEY: "test-secret" }).constructor.name, "SupabaseReservationRepository");
+  assert.equal(resolveReservationRepository({}).constructor.name, "DemoReservationRepository");
 });

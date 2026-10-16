@@ -56,6 +56,14 @@ export function ReservationActions({ reservation }: { reservation: Reservation }
           </button>
         </form>
       )}
+
+      <button
+        type="button"
+        className="button button-outline-dark"
+        onClick={() => window.open(`/admin/reservations/${reservation.reservationNumber}/receipt`, "_blank", "noopener,noreferrer")}
+      >
+        Print Receipt
+      </button>
     </div>
   );
 }

@@ -118,8 +118,8 @@ export function summarizeReservations(reservations: Reservation[] = [], referenc
 }
 
 export async function getDashboardData() {
-  const { demoReservationRepository } = await import("./reservations/demo-repository");
-  const reservations = await demoReservationRepository.list();
+  const { resolveReservationRepository } = await import("./reservations/supabase-repository");
+  const reservations = await resolveReservationRepository().list();
   const summary = summarizeReservations(reservations, new Date());
   const occupancy = getPhysicalRoomSummary(reservations);
   return {

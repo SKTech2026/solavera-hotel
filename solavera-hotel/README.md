@@ -9,6 +9,17 @@ npm install
 npm run dev
 ```
 
+## Vercel environment variables
+
+Add the following environment variables in Vercel:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+```
+
+Do not commit actual keys to Git. Keep `.env*` files ignored and use Vercel's environment settings for production secrets.
+
 ## Assets
 
 Place the supplied files at:
@@ -22,18 +33,18 @@ The supplied images are installed at these paths and used throughout the homepag
 
 ## Current scope
 
-The public demo flow covers the homepage, room discovery and details, six booking stages, confirmation, and My Booking lookup. It does not collect payment credentials or process a payment. Guest information, extras, payment method, and reservation creation are handled through a server route. Staff administration and a production database are future phases.
+The public demo flow covers the homepage, room discovery and details, six booking stages, confirmation, and My Booking lookup. It does not collect payment credentials or process a payment. Guest information, extras, payment method, and reservation creation are handled through a server route. Reservation persistence is handled through a Supabase Postgres repository when configured, with the local demo file store remaining available only for local/test fallback scenarios.
 
 ## Booking architecture
 
 - `src/components/booking/booking-experience.tsx` keeps the six-step draft in memory. Stay and room selection are retained in the URL. Selected extras and payment method are kept temporarily in namespaced `sessionStorage`; guest details are **not** stored there. The draft is cleared after a successful reservation. A refresh during guest details requires re-entering those details.
 - `POST /api/reservations` validates all browser input, resolves the room type and extras from server data, recalculates nights and every total, checks physical inventory, and persists the reservation. Browser-supplied totals are ignored.
 - `POST /api/reservations/lookup` requires **both** a reservation number and matching email. It never lists reservations. The confirmation route requires a short-lived HTTP-only receipt cookie issued at creation. Public responses omit internal IDs, assigned physical room IDs, receipt hashes, address, and phone.
-- `src/lib/reservations/repository.ts` defines the persistence boundary. `demo-repository.ts` is its local implementation. A future PostgreSQL implementation should perform inventory selection and insertion in one transaction with database-enforced locking or exclusion rules.
+- `src/lib/reservations/repository.ts` defines the persistence boundary. `supabase-repository.ts` is the production repository that uses Postgres in Supabase when the Vercel environment variables are configured. `demo-repository.ts` remains available as a local-only fallback for tests and development without writable filesystem dependence in production.
 
 ## Demo persistence and inventory
 
-The demo repository writes to `.demo-data/reservations.json` inside this project; the directory is gitignored. Set `SOLAVERA_DEMO_STORE_NAME` to a filename such as `verification.json` to use a separate file in that directory. Do **not** deploy this file store as production persistence. It requires a writable local Node filesystem and serializes writes only within one Node process. Multiple processes, serverless instances, crashes during writes, and external file edits can still race or lose data.
+The local demo repository writes to `.demo-data/reservations.json` inside this project; the directory is gitignored. Set `SOLAVERA_DEMO_STORE_NAME` to a filename such as `verification.json` to use a separate file in that directory. Do **not** deploy this file store as production persistence. It requires a writable local Node filesystem and serializes writes only within one Node process. Multiple processes, serverless instances, crashes during writes, and external file edits can still race or lose data. Production should use Supabase Postgres with the Vercel environment variables above.
 
 The guest chooses a room *type*. Physical demo inventory has three Garden Deluxe rooms (`G101`–`G103`), three Ocean View rooms (`O201`–`O203`), and two Ocean Suites (`S301`–`S302`). The repository assigns available physical rooms internally. Only inventory with `available` status can be assigned. Active reservations block an inventory item when `existing.checkIn < requested.checkOut` and `requested.checkIn < existing.checkOut`. Checkout day is reusable; cancelled reservations do not block availability. Assignment is checked again at final submission.
 

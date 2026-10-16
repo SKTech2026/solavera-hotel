@@ -4,7 +4,7 @@ import { extras } from "@/data/extras";
 import { physicalRooms } from "@/data/inventory";
 import { getRoom } from "@/data/rooms";
 import { numberOfNights, roomSubtotal } from "@/lib/booking";
-import { demoReservationRepository, receiptHash } from "./demo-repository";
+import { receiptHash, reservationRepository } from "./supabase-repository";
 import { priceExtras } from "./pricing";
 import { initialStatuses } from "./status";
 import { normalizeEmail, parseCreateInput, ReservationValidationError, validReservationNumber } from "./validation";
@@ -17,7 +17,7 @@ export function toPublicReservation(reservation: Reservation): PublicReservation
   return { ...publicReservation, guest: { firstName: reservation.guest.firstName, lastName: reservation.guest.lastName, email: reservation.guest.email } };
 }
 
-export async function createReservation(raw: unknown, repository: ReservationRepository = demoReservationRepository): Promise<{ reservation: PublicReservation; receiptToken: string }> {
+export async function createReservation(raw: unknown, repository: ReservationRepository = reservationRepository): Promise<{ reservation: PublicReservation; receiptToken: string }> {
   const parsed = parseCreateInput(raw);
   if (!parsed.input) throw new ReservationValidationError(parsed.error);
   const input = parsed.input;
@@ -37,13 +37,13 @@ export async function createReservation(raw: unknown, repository: ReservationRep
   return { reservation: toPublicReservation(reservation), receiptToken };
 }
 
-export async function lookupReservation(reservationNumber: string, email: string, repository: ReservationRepository = demoReservationRepository): Promise<PublicReservation | null> {
+export async function lookupReservation(reservationNumber: string, email: string, repository: ReservationRepository = reservationRepository): Promise<PublicReservation | null> {
   if (!validReservationNumber(reservationNumber) || !email || email.length > 254) return null;
   const reservation = await repository.findByNumber(reservationNumber);
   return reservation && normalizeEmail(reservation.guest.email) === normalizeEmail(email) ? toPublicReservation(reservation) : null;
 }
 
-export async function getReceiptReservation(reservationNumber: string, token: string, repository: ReservationRepository = demoReservationRepository): Promise<PublicReservation | null> {
+export async function getReceiptReservation(reservationNumber: string, token: string, repository: ReservationRepository = reservationRepository): Promise<PublicReservation | null> {
   if (!validReservationNumber(reservationNumber) || !/^[a-f0-9]{64}$/.test(token)) return null;
   const reservation = await repository.findByNumber(reservationNumber);
   if (!reservation) return null;
@@ -52,14 +52,14 @@ export async function getReceiptReservation(reservationNumber: string, token: st
   return actual.length === offered.length && timingSafeEqual(actual, offered) ? toPublicReservation(reservation) : null;
 }
 
-export async function listReservations(repository: ReservationRepository = demoReservationRepository): Promise<Reservation[]> {
+export async function listReservations(repository: ReservationRepository = reservationRepository): Promise<Reservation[]> {
   return repository.list();
 }
 
 export async function updateReservationStatus(
   reservationNumber: string,
   updates: Partial<{ reservationStatus: ReservationStatus; paymentStatus: Reservation["paymentStatus"] }>,
-  repository: ReservationRepository = demoReservationRepository,
+  repository: ReservationRepository = reservationRepository,
 ): Promise<Reservation> {
   return repository.updateStatus(reservationNumber, { ...updates, updatedAt: new Date().toISOString() });
 }

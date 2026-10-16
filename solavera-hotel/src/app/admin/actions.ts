@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { demoReservationRepository } from "@/lib/reservations/demo-repository";
+import { resolveReservationRepository } from "@/lib/reservations/supabase-repository";
 import { updateReservationStatus } from "@/lib/reservations/service";
 
 export async function updateReservationAction(formData: FormData) {
@@ -12,7 +12,7 @@ export async function updateReservationAction(formData: FormData) {
     redirect("/admin/reservations");
   }
 
-  const reservation = await demoReservationRepository.findByNumber(reservationNumber);
+  const reservation = await resolveReservationRepository().findByNumber(reservationNumber);
   if (!reservation) {
     redirect("/admin/reservations");
   }
