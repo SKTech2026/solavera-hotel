@@ -13,6 +13,7 @@ export function BookingBar() {
   const [children, setChildren] = useState(0);
   const [rooms, setRooms] = useState(1);
   const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
   const minDate = todayDate();
 
   function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -23,6 +24,7 @@ export function BookingBar() {
       return;
     }
     setError("");
+    setPending(true);
     router.push(bookingUrl({ checkIn, checkOut, adults, children, rooms }));
   }
 
@@ -34,7 +36,7 @@ export function BookingBar() {
         <label className="booking-field"><span><UsersRound size={16} /> Adults</span><select value={adults} onChange={(e) => setAdults(Number(e.target.value))}>{[1,2,3,4,5,6,7,8].map((n) => <option key={n}>{n}</option>)}</select></label>
         <label className="booking-field"><span>Children</span><select value={children} onChange={(e) => setChildren(Number(e.target.value))}>{[0,1,2,3,4,5,6].map((n) => <option key={n}>{n}</option>)}</select></label>
         <label className="booking-field"><span>Rooms</span><select value={rooms} onChange={(e) => setRooms(Number(e.target.value))}>{[1,2,3,4].map((n) => <option key={n}>{n}</option>)}</select></label>
-        <button className="booking-submit" type="submit">Check Availability <ArrowUpRight size={18} /></button>
+        <button className="booking-submit" type="submit" disabled={pending}>{pending ? "Finding Rooms…" : "Check Availability"} <ArrowUpRight size={18} /></button>
       </div>
       {error && <p className="booking-error" role="alert">{error}</p>}
     </form>

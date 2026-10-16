@@ -10,7 +10,9 @@ export function ReservationActions({ reservation }: { reservation: Reservation }
   const handleCancel = (event: React.FormEvent<HTMLFormElement>) => {
     if (!window.confirm("Cancel this reservation for the guest? This action cannot be undone in the demo.")) {
       event.preventDefault();
+      return;
     }
+    setPending("cancel");
   };
 
   return (

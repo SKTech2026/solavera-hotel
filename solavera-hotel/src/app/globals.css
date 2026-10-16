@@ -208,3 +208,5 @@
 	.discovery-filters select{min-height:52px}
 }
 @media(max-width:380px){.hero h1{font-size:clamp(42px,14vw,50px)}}
+button:not(:disabled):active,.button:not(:disabled):active{transform:translateY(1px)}
+.booking-submit:disabled{opacity:.65;cursor:wait}

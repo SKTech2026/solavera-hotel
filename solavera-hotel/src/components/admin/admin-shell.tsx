@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { BriefcaseBusiness, Building2, CreditCard, Flame, House, LayoutDashboard, Menu, Settings, Sparkles, Users, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const navigation = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
@@ -19,6 +19,19 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!sidebarOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSidebarOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [sidebarOpen]);
 
   return (
     <div className="admin-shell">
@@ -33,12 +46,12 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               </div>
             )}
           </div>
-          <button type="button" className="admin-collapse-btn" aria-label="Toggle sidebar" onClick={() => setCollapsed((state) => !state)}>
+          <button type="button" className="admin-collapse-btn" aria-label={collapsed ? "Expand admin navigation" : "Collapse admin navigation"} aria-controls="admin-nav" aria-expanded={!collapsed} onClick={() => setCollapsed((state) => !state)}>
             {collapsed ? <Flame size={16} /> : <X size={16} />}
           </button>
         </div>
 
-        <nav className="admin-nav" aria-label="Admin navigation">
+        <nav id="admin-nav" className="admin-nav" aria-label="Admin navigation">
           {navigation.map(({ href, label, icon: Icon }) => {
             const isActive = pathname === href || (href !== "/admin" && pathname.startsWith(href));
             return (
@@ -61,8 +74,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <div className="admin-main">
         <header className="admin-header">
           <div className="admin-header-left">
-            <button type="button" className="admin-menu-btn" aria-label="Open navigation" onClick={() => setSidebarOpen((state) => !state)}>
-              <Menu size={18} />
+            <button ref={menuButtonRef} type="button" className="admin-menu-btn" aria-label={sidebarOpen ? "Close navigation" : "Open navigation"} aria-controls="admin-nav" aria-expanded={sidebarOpen} onClick={() => setSidebarOpen((state) => !state)}>
+              {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
             <div className="admin-header-title">
               <span className="eyebrow with-line">Operations</span>
@@ -77,7 +90,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         <main className="admin-page">{children}</main>
       </div>
 
-      <button type="button" className={`admin-drawer-backdrop ${sidebarOpen ? "visible" : ""}`} aria-label="Close navigation" onClick={() => setSidebarOpen(false)} />
+      {sidebarOpen && <button type="button" className="admin-drawer-backdrop visible" aria-label="Close navigation" onClick={() => setSidebarOpen(false)} />}
     </div>
   );
 }
