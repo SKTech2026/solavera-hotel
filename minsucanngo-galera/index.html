@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MinSUcanNGo Galera | Puerto Galera Digital Tourism Guide</title>
+  <meta name="description" content="Explore Puerto Galera with MinSUcanNGo Galera — discover beaches, dive sites, waterfalls, cultural attractions, travel guides, interactive maps, and QR-powered destination information.">
+  <meta property="og:title" content="MinSUcanNGo Galera | Puerto Galera Digital Tourism Guide">
+  <meta property="og:description" content="Scan Smart, Discover Galera. Explore destinations, plan your trip, and open QR-powered travel guides.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/puerto-galera-hero-beach-1450353.jpg">
+  <link rel="icon" type="image/png" href="assets/logos/minsucanngo-logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&amp;family=Poppins:wght@400;500;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  
+  
+  
+  
+ </head>
+ <body class="w-full" style="background: rgb(255, 253, 247);">
+  <!-- NAV -->
+  <header>
+   <nav class="glass-nav fixed z-40 top-0 left-0 w-full" style="border-radius:0 0 1rem 1rem" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-5">
+     <a href="#home" class="flex items-center gap-3 min-w-0"> <img class=" seal-crop w-11 h-11 object-contain shrink-0" loading="lazy" src="assets/logos/puerto-galera-seal.png" alt="Official seal of the Municipality of Puerto Galera, Oriental Mindoro"> <img class=" seal-crop w-11 h-11 object-contain shrink-0" loading="lazy" src="assets/logos/minsu-seal.png" alt="Official seal of Mindoro State University"> <img class=" w-11 h-11 object-contain shrink-0" loading="lazy" src="assets/logos/minsucanngo-logo.png" alt="MinSUcanNGo Galera colorful brand logo"> <span class="font-extrabold tracking-tight truncate" style="color: rgb(2, 48, 71); font-weight: 800; font-style: normal; font-size: 16px;">MinSUcanNGo Galera</span> </a>
+     <div class="desktop-nav hidden lg:flex items-center gap-1 text-sm">
+      <a href="#home" class="nav-link active-link" aria-current="page">Home</a> <a href="#about" class="nav-link">About</a> <a href="#explore" class="nav-link">Explore</a> <a href="#plan" class="nav-link">Plan Your Trip</a> <a href="#gallery" class="nav-link">Gallery</a> <a href="#qr-guide" class="nav-link">QR Guide</a> <a href="#contact" class="nav-link">Contact</a>
+     </div><button id="menu-open" type="button" class="lg:hidden p-2 rounded-xl text-[#023047] hover:bg-[#CAF0F8]" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><i data-lucide="menu"></i></button>
+    </div>
+   </nav>
+   <div id="mobile-menu" class="fixed z-50 top-0 right-0 h-full w-72 max-w-full p-7 shadow-2xl" style="background:linear-gradient(180deg,#005F73,#023047)" aria-label="Mobile navigation">
+    <button id="menu-close" type="button" class="absolute right-5 top-5 p-2 text-white hover:text-[#FFD166]" aria-label="Close menu"><i data-lucide="x"></i></button>
+    <div class="flex flex-col gap-3 pt-14">
+     <a href="#home" class="mobile-link">Home</a> <a href="#about" class="mobile-link">About</a> <a href="#explore" class="mobile-link">Explore</a> <a href="#plan" class="mobile-link">Plan Your Trip</a> <a href="#gallery" class="mobile-link">Gallery</a> <a href="#qr-guide" class="mobile-link">QR Guide</a> <a href="#contact" class="mobile-link">Contact</a> <a href="#credits" class="mobile-link">Credits &amp; Sources</a>
+    </div>
+   </div>
+  </header>
+  <main>
+   <!-- HERO -->
+   <section id="home" class="hero-section relative flex items-center justify-center text-center text-white overflow-hidden">
+    <img class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" src="assets/images/puerto-galera-hero-beach-1450353.jpg" alt="Serene beach with turquoise waters, white sand, and palm trees under a sunny sky">
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="hero-content relative max-w-5xl px-5">
+     <div class="hero-logos flex items-center justify-center gap-4 mb-7">
+      <img class=" seal-crop w-16 h-16 object-contain" loading="lazy" src="assets/logos/puerto-galera-seal.png" alt="Official seal of the Municipality of Puerto Galera, Oriental Mindoro"> <img class=" seal-crop w-16 h-16 object-contain" loading="lazy" src="assets/logos/minsu-seal.png" alt="Official seal of Mindoro State University"> <img class=" w-16 h-16 object-contain" loading="lazy" src="assets/logos/minsucanngo-logo.png" alt="MinSUcanNGo Galera colorful brand logo">
+     </div>
+     <p class="hero-eyebrow">WELCOME TO PUERTO GALERA</p>
+     <h1 class="hero-title mb-3 drop-shadow-lg">MinSUcanNGo Galera</h1>
+     <p class="hero-tagline font-bold mb-4">Scan Smart, Discover Galera.</p>
+     <p class="hero-intro max-w-2xl mx-auto mb-8 leading-relaxed">Discover world-class diving, crystal-clear beaches, waterfalls, island adventures, local culture, and unforgettable experiences in the heart of Oriental Mindoro.</p>
+     <div class="hero-actions flex flex-wrap justify-center gap-3">
+      <a href="#explore" class="btn-sunset px-6 py-3">Explore Puerto Galera</a> <a href="#plan" class="btn-glass px-6 py-3">Plan My Trip</a> <a href="#qr-guide" class="btn-primary px-6 py-3">Scan Destination QR</a>
+     </div>
+     <a href="#contact" class="hero-contact inline-block mt-4">Contact Tourism Office <span aria-hidden="true">↗</span></a>
+     <p class="hero-award inline-flex items-center gap-2 mt-7 px-5 py-2 rounded-full font-bold"><i data-lucide="award" aria-hidden="true"></i> Philippines' No. 1 Dive Destination for 2025–2027</p>
+     <p class="text-white/80 text-xs mt-2">Source: Experience Puerto Galera</p>
+    </div>
+    <div class="hero-features" aria-label="Puerto Galera experiences"><span><i data-lucide="waves"></i> World-Class Diving</span><span><i data-lucide="sun"></i> Tropical Beaches</span><span><i data-lucide="trees"></i> Nature &amp; Waterfalls</span><span><i data-lucide="landmark"></i> Mangyan Culture</span><span><i data-lucide="compass"></i> Island Adventures</span></div>
+    <a href="#about" class="hero-scroll" aria-label="Scroll to introduction"><i data-lucide="chevron-down"></i></a>
+   </section><!-- Wave -->
+   <div class="wave-divider" style="margin-top:-1px">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,60 L0,60Z" fill="#FFFDF7"></path>
+    </svg>
+   </div><!-- INTRODUCTION -->
+   <section class="intro-section section-coconut py-20" aria-labelledby="intro-title">
+    <div class="max-w-6xl mx-auto px-5 intro-layout fade-in">
+     <div class="intro-visual"><img src="assets/images/puerto-galera-aerial-coast-29827505.jpg" alt="Aerial view of a tropical Philippine coastline" loading="lazy"><span class="intro-caption">Oriental Mindoro, Philippines</span></div>
+     <div class="intro-copy"><p class="section-eyebrow">YOUR DIGITAL ISLAND GUIDE</p><h2 id="intro-title">Your Gateway to Paradise</h2><p>MinSUcanNGo Galera helps you discover attractions, understand each destination, plan your journey, and access travel information through destination QR codes.</p><div class="intro-facts"><span><i data-lucide="map-pin"></i> Puerto Galera, Oriental Mindoro</span><span><i data-lucide="scan-line"></i> QR-powered destination guides</span><span><i data-lucide="map"></i> Interactive travel map</span></div><a href="#explore" class="btn-primary inline-block px-6 py-3 mt-7">Start Exploring</a></div>
+    </div>
+   </section><!-- ABOUT -->
+   <section id="about" class="section-coconut py-20">
+    <div class="max-w-6xl mx-auto px-5">
+     <h2 class="text-center mb-12" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 24px;">ABOUT PUERTO GALERA</h2>
+     <div class="grid md:grid-cols-2 gap-10 items-start fade-in">
+      <div>
+       <img class=" w-full h-80 object-cover rounded-2xl shadow-lg" loading="lazy" src="assets/images/puerto-galera-aerial-coast-29827505.jpg" alt="Stunning aerial shot of lush hills and coastline in the Philippines">
+       <p class="credit mt-2">Photo: Pexels. Original link in Credits &amp; Sources.</p>
+      </div>
+      <div class="space-y-6">
+       <div>
+        <h3 class="mb-2" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">Location</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Puerto Galera sits on the Y-shaped peninsula on the northern shores of Mindoro Island, Oriental Mindoro. It is approximately 130 km south of Manila, 14 nautical miles from Batangas City, and around 50 km from Calapan City. Its name, "Port of the Galley," reflects its historic role as a natural harbor.</p>
+       </div>
+       <div>
+        <h3 class="mb-2" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">History &amp; Identity</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Founded as the original capital of Mindoro in 1574, Puerto Galera was officially established as a municipality on December 7, 1927, through Act 3415. In 1973, it was recognized under UNESCO's Man and Biosphere Program through Presidential Decree 354, acknowledging its outstanding natural value.</p>
+       </div>
+       <div>
+        <h3 class="mb-2" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">Tourism Significance</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Puerto Galera is recognized as the Philippines' No. 1 Dive Destination for 2025–2027. Located along the Verde Island Passage — the "Center of the Center of Marine Shorefish Biodiversity" — it offers world-class diving, pristine beaches, lush forests, waterfalls, and rich cultural heritage.</p>
+       </div>
+      </div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-6 mt-12">
+      <article class="tropical-card p-7" style="background: linear-gradient(135deg, rgb(202, 240, 248), rgb(144, 224, 239));">
+       <h3 class="mb-3" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">Mission</h3>
+       <p style="color: rgb(2, 48, 71); font-weight: 400; font-style: normal; font-size: 16px;">To promote responsible and sustainable tourism that supports local communities, preserves natural resources and cultural heritage, and provides memorable experiences for every visitor to Puerto Galera.</p>
+      </article>
+      <article class="tropical-card p-7" style="background: linear-gradient(135deg, rgb(42, 157, 143), rgb(0, 95, 115));">
+       <h3 class="mb-3" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Vision</h3>
+       <p style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">A globally recognized eco-tourism destination where biodiversity thrives, local culture is celebrated, and visitors experience the best of the Philippines' natural wonders.</p>
+      </article>
+     </div>
+     <div class="text-center max-w-3xl mx-auto mt-12">
+      <h3 class="mb-3" style="color: rgb(42, 157, 143); font-weight: 700; font-style: normal; font-size: 19px;">The Iraya Mangyan Community</h3>
+      <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Puerto Galera is home to the Iraya Mangyan, an indigenous community whose traditions, weaving, and way of life form an integral part of the municipality's cultural heritage. Visitors are encouraged to engage respectfully with Mangyan communities and support their cultural preservation efforts.</p>
+     </div>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,25 C480,50 960,0 1440,25 L1440,50 L0,50Z" fill="#CAF0F8" opacity=".4"></path><path d="M0,30 C360,5 720,50 1440,20 L1440,50 L0,50Z" fill="#CAF0F8"></path>
+    </svg>
+   </div><!-- FEATURED EXPERIENCES -->
+   <section id="experiences" class="featured-section section-coconut py-20" aria-labelledby="featured-title"><div class="max-w-7xl mx-auto px-5"><p class="section-eyebrow text-center">THE ISLAND IS YOURS TO DISCOVER</p><h2 id="featured-title" class="text-center mb-3">Featured Experiences</h2><p class="section-lead text-center mb-10">Choose the side of Puerto Galera you want to explore.</p><div id="featured-grid" class="featured-grid"></div></div></section><!-- EXPLORE -->
+   <section id="explore" class="section-sky py-20">
+    <div class="max-w-7xl mx-auto px-5">
+     <h2 class="text-center mb-3" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 24px;">EXPLORE DESTINATIONS</h2>
+     <p class="prose-muted text-center mb-8" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Discover beaches, dive sites, nature, culture, leisure, and educational tourism in Puerto Galera.</p>
+     <div class="max-w-md mx-auto mb-6"><label for="dest-search" class="sr-only">Search destinations</label><input id="dest-search" type="search" placeholder="Search destinations..." class="form-input">
+     </div>
+     <div id="filter-tabs" class="flex flex-wrap justify-center gap-2 mb-9" aria-label="Destination categories">
+      <button type="button" class="filter-chip active" data-cat="all" aria-pressed="true">All</button> <button type="button" class="filter-chip" data-cat="beach" aria-pressed="false">Beaches</button> <button type="button" class="filter-chip" data-cat="dive" aria-pressed="false">Dive Sites</button> <button type="button" class="filter-chip" data-cat="nature" aria-pressed="false">Nature</button> <button type="button" class="filter-chip" data-cat="culture" aria-pressed="false">Culture &amp; History</button> <button type="button" class="filter-chip" data-cat="leisure" aria-pressed="false">Leisure</button> <button type="button" class="filter-chip" data-cat="education" aria-pressed="false">Education</button>
+     </div>
+     <div id="dest-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+     <p id="no-results" class="hidden text-center py-10 prose-muted">No destinations found.</p>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,20 C360,50 1080,0 1440,30 L1440,50 L0,50Z" fill="#CAF0F8"></path>
+    </svg>
+   </div><!-- FEATURES -->
+   <section id="features" class="section-seafoam py-20">
+    <div class="max-w-6xl mx-auto px-5">
+     <p class="section-eyebrow text-center">FIND YOUR REASON TO VISIT</p><h2 class="text-center mb-10" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 24px;">Why Visit Puerto Galera</h2>
+     <div class="why-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <button type="button" data-filter-feature="dive" class="tropical-card p-6 text-left"><h3 class="mb-2">World-Class Diving</h3><p>Discover coral gardens, wrecks, and marine life in the Verde Island Passage.</p></button>
+      <button type="button" data-filter-feature="beach" class="tropical-card p-6 text-left"><h3 class="mb-2">Tropical Beaches</h3><p>Find clear waters, coastal views, and places to slow down.</p></button>
+      <button type="button" data-filter-feature="nature" class="tropical-card p-6 text-left"><h3 class="mb-2">Waterfalls &amp; Forests</h3><p>Explore falls, trails, and the island's lush interior.</p></button>
+      <button type="button" data-filter-feature="culture" class="tropical-card p-6 text-left"><h3 class="mb-2">Local Culture</h3><p>Learn about heritage places and the Iraya Mangyan community with respect.</p></button>
+      <button type="button" data-filter-feature="leisure" class="tropical-card p-6 text-left"><h3 class="mb-2">Island Adventures</h3><p>Enjoy sailing, outdoor activities, and scenic leisure destinations.</p></button>
+      <button type="button" data-filter-feature="education" class="tropical-card p-6 text-left"><h3 class="mb-2">Learning by the Sea</h3><p>Visit conservation and educational places around Puerto Galera.</p></button>
+     </div>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,30 C480,0 960,50 1440,20 L1440,50 L0,50Z" fill="#F7E7CE"></path>
+    </svg>
+   </div><!-- PLAN YOUR TRIP -->
+   <section id="plan" class="section-sand py-20">
+    <div class="max-w-5xl mx-auto px-5">
+     <h2 class="text-center mb-3" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 24px;">PLAN YOUR TRIP</h2>
+     <p class="prose-muted text-center mb-12" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Step-by-step guide from Manila to Puerto Galera, based on Experience Puerto Galera.</p>
+     <div class="travel-timeline space-y-7">
+      <div class="flex gap-4"><span class="step-circle shrink-0 flex items-center justify-center w-10 h-10 font-bold">1</span>
+       <div>
+        <h3 class="mb-2" style="color: rgb(2, 48, 71); font-weight: 700; font-style: normal; font-size: 19px;">Bus to Batangas Port</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">From Buendia/Pasay or Cubao, take JAM Liner, DLTB, or JAC Liner to Batangas Port. Estimated fare: ₱200–₱320. Travel time: approximately 2–3.5 hours.</p>
+       </div>
+      </div>
+      <div class="flex gap-4"><span class="step-circle shrink-0 flex items-center justify-center w-10 h-10 font-bold">2</span>
+       <div>
+        <h3 class="mb-2" style="color: rgb(2, 48, 71); font-weight: 700; font-style: normal; font-size: 19px;">Ferry to Puerto Galera</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Board a ferry from Batangas Pier via Island Water, Montenegro Lines, or Galerian. Estimated one-way fare: ₱600–₱900. Travel time: approximately 1–2 hours.</p>
+       </div>
+      </div>
+      <div class="flex gap-4"><span class="step-circle shrink-0 flex items-center justify-center w-10 h-10 font-bold">3</span>
+       <div>
+        <h3 class="mb-2" style="color: rgb(2, 48, 71); font-weight: 700; font-style: normal; font-size: 19px;">Terminal Fee</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Pay ₱90 terminal fee per passenger. Seniors, PWDs, and students are exempt with valid Philippine ID, as stated by the source.</p>
+       </div>
+      </div>
+      <div class="flex gap-4"><span class="step-circle shrink-0 flex items-center justify-center w-10 h-10 font-bold">4</span>
+       <div>
+        <h3 class="mb-2" style="color: rgb(2, 48, 71); font-weight: 700; font-style: normal; font-size: 19px;">PG Pass &amp; Environmental Fee</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Register for the PG Pass and pay the mandatory ₱120 environmental fee at Balatero Port. Minors, students, seniors, and PWDs receive a 20% discount with valid ID, as stated by the source.</p>
+       </div>
+      </div>
+      <div class="flex gap-4"><span class="step-circle shrink-0 flex items-center justify-center w-10 h-10 font-bold">5</span>
+       <div>
+        <h3 class="mb-2" style="color: rgb(2, 48, 71); font-weight: 700; font-style: normal; font-size: 19px;">Local Transport to Your Destination</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Take an authorized tricycle or blue-and-white electric tuk-tuk. Estimated charter fare: ₱200–₱300 to White Beach or Sabang. Travel time: approximately 10–20 minutes.</p>
+       </div>
+      </div>
+     </div>
+     <div class="reminder-card p-7 mt-12">
+      <h3 class="mb-4" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">Travel Essentials</h3>
+      <ul class="list-disc pl-5 space-y-2 prose-muted">
+       <li>Bring valid IDs for discounts (seniors, PWDs, students).</li>
+       <li>Register for the PG Pass at Balatero Port upon arrival.</li>
+       <li>Wear reef-safe sunscreen and respect marine protected areas.</li>
+       <li>Keep hydrated and protect yourself from the sun.</li>
+       <li>Best time to visit, weather conditions, accommodations, dining, and specific emergency numbers: not listed on the source website. Contact the Tourism Office for current details.</li>
+      </ul>
+     </div>
+     <h3 class="text-center mt-12 mb-5" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">Puerto Galera Location</h3>
+     <div class="tropical-card overflow-hidden">
+      <div id="plan-map" class="w-full h-72 sm:h-96" role="img" aria-label="General map of Puerto Galera, Oriental Mindoro. No destination pin is claimed."></div>
+      <div class="p-5 sm:p-7">
+       <p class="prose-muted text-sm mb-4" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Municipality coverage, for general context only: approximately 13°23′–13°32′ N and 120°50′–121°00′ E. These bounds do not identify an exact destination pin.</p><a id="map-municipality-link" class="map-link map-action-btn px-5 py-2.5 mb-6" href="https://www.google.com/maps/search/?api=1&amp;query=Puerto%20Galera%20Oriental%20Mindoro" target="_blank" rel="noopener noreferrer" aria-label="Open Puerto Galera in Google Maps in a new tab" style="background: rgb(202, 240, 248); color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 16px;">Open Puerto Galera in Google Maps</a>
+       <div class="border-t border-[#90E0EF] pt-5">
+        <h3 class="mb-2" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">Selected destination</h3>
+        <p id="selected-map-name" class="font-bold text-lg" aria-live="polite">Select a destination or open a guide.</p>
+        <p id="selected-map-location" class="location-line mt-1">Location: Puerto Galera, Oriental Mindoro</p>
+        <p class="prose-muted text-sm mt-2 mb-4" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Google Maps opens a search result, not a verified exact destination pin.</p>
+        <div class="flex flex-wrap gap-3">
+         <a id="selected-map-link" class="map-link map-action-btn px-5 py-2.5" href="https://www.google.com/maps/search/?api=1&amp;query=Puerto%20Galera%20Oriental%20Mindoro" target="_blank" rel="noopener noreferrer" aria-label="Open Puerto Galera in Google Maps in a new tab" style="background: rgb(202, 240, 248); color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 16px;">Open selected place in Google Maps</a> <a id="directions-link" class="hidden map-link btn-sunset px-5 py-2.5" href="https://www.google.com/maps/dir/?api=1&amp;destination=Puerto%20Galera%20Oriental%20Mindoro" target="_blank" rel="noopener noreferrer" style="background: linear-gradient(135deg, rgb(255, 209, 102), rgb(255, 140, 66)); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Directions from my location</a>
+        </div>
+       </div>
+       <div class="mt-7 rounded-xl p-5" style="background:linear-gradient(135deg,rgba(202,240,248,.4),rgba(42,157,143,.1))">
+        <p class="font-bold mb-2" style="color: rgb(42, 157, 143); font-weight: 700; font-style: normal; font-size: 16px;">Optional · One-time location</p><button id="live-location-button" type="button" class="btn-primary px-5 py-2.5" aria-label="Request my one-time live location after browser permission" style="background: linear-gradient(135deg, rgb(0, 180, 216), rgb(72, 202, 228)); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">My Live Location</button>
+        <p class="text-sm prose-muted mt-3" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Your live location is requested only after you tap the button and approve browser permission. It is not stored by MinSUcanNGo Galera.</p>
+        <p id="live-status" class="mt-3 text-sm font-semibold" role="status" aria-live="polite" style="color:var(--ocean)"></p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,25 C360,50 720,0 1080,40 C1260,20 1380,35 1440,25 L1440,50 L0,50Z" fill="#CAF0F8" opacity=".5"></path><path d="M0,35 C480,10 960,45 1440,20 L1440,50 L0,50Z" fill="rgba(202,240,248,.7)"></path>
+    </svg>
+   </div><!-- GALLERY -->
+   <section id="gallery" class="section-sky py-20">
+    <div class="max-w-7xl mx-auto px-5">
+     <h2 class="text-center mb-3" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 24px;">GALLERY</h2>
+     <p class="prose-muted text-center mb-8" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Visual highlights of Puerto Galera's beaches, diving, nature, culture, and travel journey.</p>
+     <div id="gallery-tabs" class="flex flex-wrap justify-center gap-2 mb-8" aria-label="Gallery categories">
+      <button type="button" class="filter-chip active" data-gcat="all" aria-pressed="true">All</button> <button type="button" class="filter-chip" data-gcat="beach" aria-pressed="false">Beaches</button> <button type="button" class="filter-chip" data-gcat="diving" aria-pressed="false">Diving</button> <button type="button" class="filter-chip" data-gcat="nature" aria-pressed="false">Nature</button> <button type="button" class="filter-chip" data-gcat="culture" aria-pressed="false">Culture</button> <button type="button" class="filter-chip" data-gcat="travel" aria-pressed="false">Travel</button>
+     </div>
+     <div id="gallery-grid" class="marquee-gallery" aria-label="Puerto Galera photo gallery"></div>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,20 C360,50 1080,0 1440,30 L1440,50 L0,50Z" fill="#005F73"></path>
+    </svg>
+   </div><!-- QR GUIDE -->
+   <section id="qr-guide" class="section-ocean text-white py-20">
+    <div class="max-w-4xl mx-auto px-5 text-center">
+     <p class="section-eyebrow">YOUR DIGITAL DESTINATION PASS</p><h2 class="mb-3" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Scan. Discover. Explore.</h2>
+     <p class="mb-7" style="color: rgb(144, 224, 239); font-weight: 400; font-style: normal; font-size: 16px;">Scan a destination QR code or enter its code to instantly open a travel guide.</p>
+     <div class="w-44 h-44 mx-auto mb-6 flex items-center justify-center rounded-2xl" style="border:3px solid var(--crystal);background:rgba(255,255,255,.05);backdrop-filter:blur(6px)"><i data-lucide="scan" style="color:var(--crystal)" class="w-14 h-14"></i>
+     </div>
+     <p class="text-white/80 text-sm mb-5">Camera scanning is not available in this environment. Use the input or buttons below.</p>
+     <form id="qr-form" class="flex gap-2 max-w-md mx-auto mb-5"><label for="qr-input" class="sr-only">Enter destination code</label><input id="qr-input" type="text" placeholder="Enter destination code (e.g. CORAL01)" class="min-w-0 flex-1 rounded-full px-4 py-3 text-[#023047]"><button type="submit" class="btn-sunset px-5 font-bold">Look Up</button>
+     </form>
+     <p id="qr-error" class="hidden mb-4" role="status" style="color:var(--coral)">No destination found for that code.</p>
+     <p class="text-white/80 text-sm mb-3">Or select a sample destination:</p>
+     <div id="qr-samples" class="flex flex-wrap justify-center gap-2 mb-8"></div>
+     <article id="qr-result" class="hidden bg-white text-[#023047] rounded-2xl max-w-lg mx-auto text-left overflow-hidden shadow-xl">
+      <img id="qr-result-img" class="w-full h-48 object-cover" alt="" loading="lazy">
+      <div class="p-6">
+       <span id="qr-result-cat" class="tropical-tag inline-block px-3 py-1"></span>
+       <h3 id="qr-result-name" class="mt-3 mb-2"></h3>
+       <p id="qr-result-desc" class="prose-muted mb-3"></p>
+       <p id="qr-result-highlights" class="mb-3"></p>
+       <p id="qr-result-location" class="location-line mb-3"></p>
+       <p class="credit mb-4">Photo: Pexels. Prices, duration, schedules, availability: contact the Tourism Office for current information.</p>
+       <div class="flex flex-wrap gap-2">
+        <a href="#contact" class="btn-sunset px-4 py-2 text-sm">Inquire</a> <button id="qr-back" type="button" class="btn-outline px-4 py-2 text-sm">Back</button> <button id="qr-copy" type="button" class="btn-outline px-4 py-2 text-sm">Copy Link</button> <a id="qr-map-link" class="map-link map-action-btn px-4 py-2 text-sm" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+       </div>
+       <p id="qr-copy-status" class="mt-2 text-sm" role="status"></p>
+      </div>
+     </article>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,20 C480,50 960,0 1440,30 L1440,50 L0,50Z" fill="#F7E7CE"></path>
+    </svg>
+   </div><!-- CONTACT -->
+   <section id="contact" class="section-sand py-20">
+    <div class="max-w-6xl mx-auto px-5">
+     <h2 class="text-center mb-10" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 24px;">CONTACT US</h2>
+     <div class="grid md:grid-cols-2 gap-9">
+      <div>
+       <article class="tropical-card p-7 mb-5" style="background: rgb(255, 255, 255);">
+        <h3 class="mb-4" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 19px;">Puerto Galera Tourism Office</h3>
+        <div class="contact-methods space-y-3 prose-muted break-words">
+         <p><i data-lucide="map-pin" aria-hidden="true"></i><span>Puerto Galera, Oriental Mindoro, Philippines 5203</span></p>
+         <p><i data-lucide="phone" aria-hidden="true"></i><span><a href="tel:+639616815244">0961-681-5244</a> / <a href="tel:+639209889551">0920-988-9551</a></span></p>
+         <p><i data-lucide="mail" aria-hidden="true"></i><span><a href="mailto:puertogalera2025@gmail.com">puertogalera2025@gmail.com</a> / <a href="mailto:pgtourismoffice@gmail.com">pgtourismoffice@gmail.com</a></span></p>
+         <p><i data-lucide="facebook" aria-hidden="true"></i><span>Facebook: @experiencepuertogalera</span></p>
+        </div>
+       </article>
+       <article class="tropical-card emergency-border p-7" style="background: rgb(255, 255, 255);">
+        <h3 class="mb-2" style="color: rgb(255, 107, 107); font-weight: 700; font-style: normal; font-size: 19px;">Emergency Information</h3>
+        <p class="prose-muted" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Specific emergency numbers were not listed on the source website. For urgent concerns, verify local emergency contacts and contact the Puerto Galera Tourism Office using the numbers above: 0961-681-5244 or 0920-988-9551.</p>
+       </article>
+      </div>
+      <form id="contact-form" class="tropical-card p-6 space-y-4" novalidate="">
+       <div><label for="cf-name" class="block font-semibold mb-1">Name *</label><input id="cf-name" type="text" required="" class="form-input">
+        <p class="cf-error hidden text-sm mt-1" style="color:var(--coral)">Please enter your name.</p>
+       </div>
+       <div><label for="cf-email" class="block font-semibold mb-1">Email *</label><input id="cf-email" type="email" required="" class="form-input">
+        <p class="cf-error hidden text-sm mt-1" style="color:var(--coral)">Please enter a valid email.</p>
+       </div>
+       <div><label for="cf-mobile" class="block font-semibold mb-1">Mobile Number</label><input id="cf-mobile" type="tel" class="form-input">
+       </div>
+       <div><label for="cf-subject" class="block font-semibold mb-1">Subject *</label><input id="cf-subject" type="text" required="" class="form-input">
+        <p class="cf-error hidden text-sm mt-1" style="color:var(--coral)">Please enter a subject.</p>
+       </div>
+       <div><label for="cf-message" class="block font-semibold mb-1">Message *</label><textarea id="cf-message" rows="4" required="" class="form-input"></textarea>
+        <p class="cf-error hidden text-sm mt-1" style="color:var(--coral)">Please enter your message.</p>
+       </div><button id="cf-submit" type="submit" class="btn-sunset w-full py-3 font-bold"><span id="submit-ready">Send Inquiry</span><span id="submit-pending" class="hidden">Opening email app...</span></button>
+       <p id="cf-success" class="hidden p-4 rounded-lg" role="status" style="background:rgba(42,157,143,.1);color:var(--palm)">Your email app will open with this inquiry. Review it and press Send there.</p>
+       <p id="cf-fail" class="hidden p-4 rounded-lg" role="alert" style="background:rgba(255,107,107,.1);color:var(--coral)">Please check the fields and try again.</p>
+      </form>
+     </div>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,25 C480,50 960,0 1440,25 L1440,50 L0,50Z" fill="#CAF0F8" opacity=".4"></path><path d="M0,30 C360,5 720,50 1440,20 L1440,50 L0,50Z" fill="#FFFDF7"></path>
+    </svg>
+   </div><!-- CREDITS & SOURCES -->
+   <section id="credits" class="section-coconut py-20">
+    <div class="max-w-6xl mx-auto px-5">
+     <h2 class="text-center mb-2" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 24px;">CREDITS &amp; SOURCES</h2>
+     <p class="prose-muted text-center mb-6" style="color: rgb(58, 90, 99); font-weight: 400; font-style: normal; font-size: 16px;">Photo, information, and reference acknowledgments for content featured on this website.</p>
+     <div class="max-w-3xl mx-auto mb-10 prose-muted text-sm leading-relaxed">
+      <p>We acknowledge the photographers, creators, organizations, government agencies, tourism offices, publications, websites, and other sources whose materials and information contributed to this tourism platform. Credits are provided below to help visitors identify and access the original published sources.</p>
+     </div><!-- Search & Filters -->
+     <div class="max-w-md mx-auto mb-5">
+      <label for="credits-search" class="sr-only">Search credits or sources</label> <input id="credits-search" type="search" placeholder="Search credits or sources…" class="form-input">
+     </div>
+     <div id="credits-filters" class="flex flex-wrap justify-center gap-2 mb-6" aria-label="Credit filters">
+      <button type="button" class="filter-chip active" data-cfilter="all" aria-pressed="true">All</button> <button type="button" class="filter-chip" data-cfilter="photos" aria-pressed="false">Photos</button> <button type="button" class="filter-chip" data-cfilter="destination" aria-pressed="false">Destination Information</button> <button type="button" class="filter-chip" data-cfilter="government" aria-pressed="false">Government Sources</button> <button type="button" class="filter-chip" data-cfilter="tourism" aria-pressed="false">Tourism Sources</button> <button type="button" class="filter-chip" data-cfilter="maps" aria-pressed="false">Maps</button> <button type="button" class="filter-chip" data-cfilter="other" aria-pressed="false">Other</button>
+     </div><!-- Tabs -->
+     <div class="flex flex-wrap justify-center gap-3 mb-8">
+      <button type="button" id="tab-photos" class="credits-tab active" aria-pressed="true">Photo Credits</button> <button type="button" id="tab-info" class="credits-tab" aria-pressed="false">Information &amp; Content Sources</button>
+     </div>
+     <div id="credits-photo-list" class="space-y-4"></div>
+     <div id="credits-info-list" class="space-y-4 hidden"></div>
+     <div class="text-center mt-7"><button id="credits-show-more" type="button" class="btn-outline px-6 py-2.5 text-sm">Show all photo credits</button></div>
+     <p id="credits-no-results" class="hidden text-center py-10 prose-muted">No matching credits or sources found.</p>
+    </div>
+   </section><!-- Wave -->
+   <div class="wave-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,20 C480,50 960,0 1440,30 L1440,50 L0,50Z" fill="#023047"></path>
+    </svg>
+   </div>
+  </main><!-- FOOTER -->
+  <footer class="site-footer text-white py-12">
+   <div class="max-w-6xl mx-auto px-5 grid md:grid-cols-3 gap-8">
+    <div>
+     <div class="footer-logos"><img src="assets/logos/puerto-galera-seal.png" alt="Puerto Galera seal" loading="lazy"><img src="assets/logos/minsu-seal.png" alt="Mindoro State University seal" loading="lazy"><img src="assets/logos/minsucanngo-logo.png" alt="MinSUcanNGo Galera logo" loading="lazy"></div><p class="font-extrabold mb-2" style="color: rgb(255, 255, 255); font-weight: 800; font-style: normal; font-size: 16px;">MinSUcanNGo Galera</p>
+     <p class="mb-2" style="color: rgb(255, 209, 102); font-weight: 400; font-style: normal; font-size: 16px;">Scan Smart, Discover Galera.</p>
+     <p class="text-sm text-white/70">© 2026 MinSUcanNGo Galera</p>
+    </div>
+    <div>
+     <p class="font-bold mb-3">Quick Links</p>
+     <div class="flex flex-col gap-1 text-white/80">
+      <a href="#home">Home</a><a href="#about">About</a><a href="#explore">Explore</a><a href="#plan">Plan Your Trip</a><a href="#gallery">Gallery</a><a href="#qr-guide">QR Guide</a><a href="#contact">Contact</a><a href="#credits">Credits &amp; Sources</a>
+     </div>
+    </div>
+    <div>
+     <p class="font-bold mb-3">Tourism Office</p>
+     <p>0961-681-5244 / 0920-988-9551</p>
+     <p class="break-words">puertogalera2025@gmail.com</p>
+     <p>Facebook: @experiencepuertogalera</p>
+    </div>
+    <div class="md:col-span-3 border-t border-white/20 pt-5 text-center text-sm">
+     <a class="inline-block mb-3" href="https://experiencepuertogalera.com" target="_blank" rel="noopener noreferrer" aria-label="Experience Puerto Galera website"><img src="assets/logos/experience-puerto-galera-logo.webp" alt="Experience Puerto Galera" class="h-12 w-auto mx-auto object-contain" loading="lazy"></a>
+     <p class="mb-2" style="color: rgb(144, 224, 239); font-weight: 400; font-style: normal; font-size: 16px;">Tourism information and visual references are based on Experience Puerto Galera: experiencepuertogalera.com.</p>
+     <p class="mb-2" style="color: rgb(144, 224, 239); font-weight: 400; font-style: normal; font-size: 16px;">Destination details, schedules, fees, and availability may change. Contact the Tourism Office for current information.</p>
+     <p style="color: rgb(144, 224, 239); font-weight: 400; font-style: normal; font-size: 16px;">Images and information from third-party sources remain attributed to their respective creators and publishers. Visit Credits &amp; Sources for detailed acknowledgments.</p>
+    </div>
+   </div>
+  </footer><!-- DESTINATION MODAL -->
+  <div id="dest-modal" class="overlay hidden fixed inset-0 z-50 p-4 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="modal-name" tabindex="-1">
+   <div class="bg-white rounded-2xl w-full max-w-xl overflow-y-auto shadow-2xl" style="max-height:calc(88 * min(var(--vh,1vh),1vh))">
+    <div class="relative">
+     <img id="modal-img" class="w-full h-52 sm:h-64 object-cover" alt="" loading="lazy"> <button id="modal-x" type="button" class="absolute right-3 top-3 rounded-full p-2" style="background:var(--ocean);color:#fff" aria-label="Close destination guide"><i data-lucide="x"></i></button>
+    </div>
+    <div class="p-6">
+     <span id="modal-cat" class="tropical-tag inline-block px-3 py-1"></span>
+     <h2 id="modal-name" class="mt-3 mb-3"></h2>
+     <p id="modal-desc" class="prose-muted mb-4"></p>
+     <p id="modal-highlights" class="mb-4"></p>
+     <p id="modal-location" class="location-line mb-3"></p>
+     <p id="modal-tips" class="prose-muted mb-3">Visitor tips: Check current conditions with the Tourism Office, bring water and sun protection, respect local communities and protected areas, and follow site-specific safety guidance.</p>
+     <p id="modal-credit" class="credit mb-3">Photo: Pexels. Original link available in Sources &amp; Credits.</p>
+     <p class="text-sm prose-muted mb-5">Prices, duration, schedules, availability, entrance fees, and booking details: contact the Tourism Office or provider for current information.</p>
+     <div class="flex flex-wrap gap-3">
+      <a id="modal-inquire" href="#contact" class="btn-sunset px-5 py-2 font-bold">Inquire</a> <a id="modal-map-link" class="map-link map-action-btn px-5 py-2 font-bold" target="_blank" rel="noopener noreferrer">Open in Google Maps</a> <button id="modal-sources-btn" type="button" class="sources-btn px-4 py-2">Sources &amp; Credits</button> <button id="modal-close" type="button" class="btn-outline px-5 py-2 font-bold" aria-label="Close destination guide" style="color: rgb(0, 95, 115); font-weight: 700; font-style: normal; font-size: 16px;">Close</button>
+     </div>
+     <p class="prose-muted text-xs mt-3">Google Maps searches by name; an exact pin has not been verified.</p>
+    </div>
+   </div>
+  </div><!-- SOURCES DETAIL MODAL -->
+  <div id="sources-modal" class="overlay hidden fixed inset-0 z-[60] p-4 flex items-center justify-center" role="dialog" aria-modal="true" aria-label="Sources and credits detail" tabindex="-1">
+   <div class="sources-modal-content p-6">
+    <div class="flex items-center justify-between mb-4">
+     <h3 class="font-bold text-lg" style="color:var(--ocean)">Sources &amp; Credits</h3><button id="sources-modal-close" type="button" class="p-2 rounded-full hover:bg-gray-100" aria-label="Close sources"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="sources-modal-body" class="space-y-4 text-sm"></div>
+   </div>
+  </div><!-- LIGHTBOX -->
+  <div id="lightbox" class="overlay hidden fixed inset-0 z-50 flex items-center justify-center p-5" role="dialog" aria-modal="true" aria-label="Image lightbox" tabindex="-1">
+   <button id="lightbox-close" type="button" class="absolute right-4 top-4 text-white p-2" aria-label="Close lightbox"><i data-lucide="x"></i></button> <button id="lightbox-prev" type="button" class="absolute left-2 top-1/2 text-white p-2" aria-label="Previous image"><i data-lucide="chevron-left"></i></button> <img id="lightbox-img" class="max-w-full object-contain rounded-lg" style="max-height:calc(78 * min(var(--vh,1vh),1vh))" alt="" loading="lazy"> <button id="lightbox-next" type="button" class="absolute right-2 top-1/2 text-white p-2" aria-label="Next image"><i data-lucide="chevron-right"></i></button>
+   <p id="lightbox-caption" class="absolute bottom-5 text-white rounded-full px-4 py-2 text-center text-sm" style="background:rgba(2,48,71,.8)"></p>
+  </div>
+  <a id="back-to-top" href="#home" aria-label="Back to top"><i data-lucide="arrow-up" aria-hidden="true"></i></a>
+  <script src="js/destinations.js" defer></script>
+<script src="js/app.js" defer></script>
+ 
+</body></html>
